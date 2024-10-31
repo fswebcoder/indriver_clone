@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indriver_clone/src/presentation/widgets/default_texfield.dart';
 
 class LoginContent extends StatelessWidget {
   const LoginContent({super.key});
@@ -106,70 +107,13 @@ class LoginContent extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        margin: const EdgeInsets.only(top: 15, left: 20, right: 15),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            bottomRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            hintText: ' ',
-                            border: InputBorder.none,
-                            prefixIcon: Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: Wrap(
-                                alignment: WrapAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(Icons.email),
-                                  Container(
-                                    height: 20,
-                                    width: 1,
-                                    color: Colors.black26,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                      const DefaultTexfield(
+                        label: 'Email',
+                        icon: Icons.email_outlined,
                       ),
-                      const SizedBox(height: 20),
-                      Container(
-                        height: 50,
-                        margin: const EdgeInsets.only(left: 15, right: 15),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            bottomRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            hintText: ' ',
-                            border: InputBorder.none,
-                            prefixIcon: Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: Wrap(
-                                alignment: WrapAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(Icons.lock),
-                                  Container(
-                                    height: 20,
-                                    width: 1,
-                                    color: Colors.black26,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                       const DefaultTexfield(
+                        label: 'Contraseña',
+                        icon: Icons.lock_outline_rounded,
                       ),
                       const Spacer(),
                       Flexible(
