@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:indriver_clone/src/presentation/widgets/default_texfield.dart';
+import 'package:indriver_clone/src/presentation/widgets/text_welcome.dart';
 
 class LoginContent extends StatelessWidget {
   const LoginContent({super.key});
@@ -27,27 +28,33 @@ class LoginContent extends StatelessWidget {
                     Color.fromARGB(255, 34, 156, 249)
                   ],
                 )),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RotatedBox(
-                        quarterTurns: 1,
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        )),
-                    SizedBox(height: 50),
-                    RotatedBox(
-                        quarterTurns: 1,
-                        child: Text(
-                          'Register',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        )),
-                    SizedBox(height: 100),
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, 'register'),
+                      child: const  RotatedBox(
+                          quarterTurns: 1,
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                                fontSize: 28,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    ),
+                    const SizedBox(height: 50),
+                     GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, 'register'),
+                       child: const RotatedBox(
+                          quarterTurns: 1,
+                          child: Text(
+                            'Register',
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          )),
+                     ),
+                    const  SizedBox(height: 100),
                   ],
                 ),
               ),
@@ -73,22 +80,8 @@ class LoginContent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: 50),
-                      const Text(
-                        'WELCOIME',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Text(
-                        'BACK...',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      const TextWelcome(label: 'WELCOME',),
+                      const TextWelcome(label: 'BACK...',),
                       AnimatedContainer(
                         alignment: Alignment.centerRight,
                         duration: const Duration(seconds: 2),
@@ -118,7 +111,7 @@ class LoginContent extends StatelessWidget {
                       const Spacer(),
                       Flexible(
                         child: Container(
-                          height: 45,
+                          height: 48,
                           width: MediaQuery.of(context).size.width,
                           margin:
                               const EdgeInsets.only(bottom: 20, left: 15, right: 15),
@@ -195,3 +188,5 @@ class LoginContent extends StatelessWidget {
     );
   }
 }
+
+

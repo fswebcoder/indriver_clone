@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DefaultTexfield extends StatelessWidget {
+class DefaultTexfieldOutline extends StatelessWidget {
   final String label;
   final IconData icon;
 
-  const DefaultTexfield({
+  const DefaultTexfieldOutline({
     super.key,
     required this.label,
     required this.icon,
@@ -17,25 +17,14 @@ class DefaultTexfield extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label,
-              style: const TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
-            const SizedBox(height: 2.0),
-            Container(
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
+                height: 45,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(134, 144, 233, 0.4),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextField(
+                child: TextFormField(
                   decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(vertical: 12.0),
@@ -44,7 +33,8 @@ class DefaultTexfield extends StatelessWidget {
                         child: Wrap(
                           alignment: WrapAlignment.spaceEvenly,
                           children: [
-                            Icon(icon, color: Colors.grey),
+                            Icon(icon,
+                                color: Color.fromARGB(255, 233, 236, 238)),
                             Container(
                               height: 20,
                               width: 1,
@@ -53,11 +43,22 @@ class DefaultTexfield extends StatelessWidget {
                           ],
                         ),
                       ),
-                      border: InputBorder.none,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                          width: 2.0,
+                        ),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 39, 139, 185),
+                          width: 1.0,
+                        ),
+                      ),
                       hintText: 'Ingrese aquí su valor',
                       hintStyle: const TextStyle(
                         fontSize: 14.0,
-                        color: Colors.grey,
+                        color: Color.fromARGB(255, 235, 231, 231),
                         textBaseline: TextBaseline.ideographic,
                       )),
                 ),
