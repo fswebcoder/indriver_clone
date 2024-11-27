@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class DefaultTexfield extends StatelessWidget {
   final String label;
   final IconData icon;
-
+  final Function(String text)? onChanged;
   const DefaultTexfield({
     super.key,
     required this.label,
     required this.icon,
+    required this.onChanged,
   });
 
   @override
@@ -36,6 +37,7 @@ class DefaultTexfield extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
+                  onChanged: onChanged,
                   decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(vertical: 12.0),

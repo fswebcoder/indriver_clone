@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class DefaultTexfieldOutline extends StatelessWidget {
   final String label;
   final IconData icon;
+  final Function(String text)? onChanged;  
 
-  const DefaultTexfieldOutline({
+   const DefaultTexfieldOutline({
     super.key,
     required this.label,
     required this.icon,
+    required this.onChanged,
   });
 
   @override
@@ -34,7 +36,7 @@ class DefaultTexfieldOutline extends StatelessWidget {
                           alignment: WrapAlignment.spaceEvenly,
                           children: [
                             Icon(icon,
-                                color: Color.fromARGB(255, 233, 236, 238)),
+                                color: const Color.fromARGB(255, 233, 236, 238)),
                             Container(
                               height: 20,
                               width: 1,
@@ -43,8 +45,8 @@ class DefaultTexfieldOutline extends StatelessWidget {
                           ],
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
                           color: Colors.blue,
                           width: 2.0,
                         ),

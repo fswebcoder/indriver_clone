@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:indriver_clone/src/presentation/widgets/default_texfield.dart';
 import 'package:indriver_clone/src/presentation/widgets/default_texfield_outline.dart';
 
 class RegisterContent extends StatelessWidget {
@@ -60,29 +59,47 @@ class RegisterContent extends StatelessWidget {
                       _imageBackgroud(context),
                       Column(
                         children: [
-                            const DefaultTexfieldOutline(
+                            DefaultTexfieldOutline(
                           label: 'Nombre',
                           icon: Icons.person_2_outlined,
+                          onChanged:  (value) {
+                            print(value);
+                          },
                         ),
-                        const DefaultTexfieldOutline(
+                         DefaultTexfieldOutline(
                           label: 'Apellido',
                           icon: Icons.person_2_outlined,
+                            onChanged:  (value) {
+                            print(value);
+                          }
                         ),
-                        const DefaultTexfieldOutline(
+                         DefaultTexfieldOutline(
                           label: 'Email',
                           icon: Icons.email_outlined,
+                            onChanged:  (value) {
+                            print(value);
+                          }
                         ),
-                        const DefaultTexfieldOutline(
+                         DefaultTexfieldOutline(
                           label: 'Telefono',
                           icon: Icons.phone,
+                            onChanged:  (value) {
+                            print(value);
+                          }
                         ),
-                        const DefaultTexfieldOutline(
+                         DefaultTexfieldOutline(
                           label: 'Contraseña',
                           icon: Icons.lock,
+                            onChanged:  (value) {
+                            
+                          }
                         ),
-                        const DefaultTexfieldOutline(
+                         DefaultTexfieldOutline(
                           label: 'Confirmar Contraseña',
                           icon: Icons.lock,
+                            onChanged:  (value) {
+                            print(value);
+                          }
                         ),
                         const SizedBox(height: 30),
                         Container(
