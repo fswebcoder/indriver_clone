@@ -16,10 +16,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
     return Scaffold(
       body: BlocBuilder<LoginBloc, LoginStateBloc>(builder: (context, state) {
-        return LoginContent(_loginBloc);
+        return LoginContent(state);
       }),
     );
   }

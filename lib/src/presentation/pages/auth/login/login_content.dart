@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:indriver_clone/main.dart';
 import 'package:indriver_clone/src/presentation/pages/auth/login/bloc/login_bloc.dart';
 import 'package:indriver_clone/src/presentation/pages/auth/login/bloc/login_event.dart';
+import 'package:indriver_clone/src/presentation/pages/auth/login/bloc/login_state_bloc.dart';
+import 'package:indriver_clone/src/presentation/utils/bloc_form_item.dart';
 import 'package:indriver_clone/src/presentation/widgets/default_texfield.dart';
 import 'package:indriver_clone/src/presentation/widgets/text_welcome.dart';
 
 class LoginContent extends StatelessWidget {
 
-  final LoginBloc? loginBloc; 
+  final LoginStateBloc? state; 
 
-   LoginContent(this.loginBloc);
+   LoginContent(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class LoginContent extends StatelessWidget {
         ),
         child: IntrinsicHeight(
           child: Form(
-            key: loginBloc?.state.formKey,
+            key: state?.formKey,
             child: Stack(
               children: [
                 Container(
@@ -109,17 +113,23 @@ class LoginContent extends StatelessWidget {
                         ),
                          DefaultTexfield(
                           label: 'Email',
+                            validator: (value) {
+                                return state?.email.error;
+                            },
                           icon: Icons.email_outlined,
                           onChanged:(text) {
-                                loginBloc?.add(EmailChanged(email: text));
+                                context.read<LoginBloc>().add(EmailChanged(email: BlocFormItem(value: text)));
                           } ,
 
                         ),
                           DefaultTexfield(
+                            validator: (value) {
+                                return state?.password.error;
+                            },
                           label: 'Contraseña',
                           icon: Icons.lock_outline_rounded,
                           onChanged:(text) {
-                                loginBloc?.add(PasswordChanged(password: text));
+                                 context.read<LoginBloc>().add(PasswordChanged(password: BlocFormItem(value: text)));
                           } ,
                         ),
                         const Spacer(),
@@ -131,14 +141,16 @@ class LoginContent extends StatelessWidget {
                                 const EdgeInsets.only(bottom: 20, left: 15, right: 15),
                             child: ElevatedButton(
                               onPressed: () {
-                                loginBloc?.add(FormSubmitted());
+                                 if(state!.formKey!.currentState!.validate()){
+                                      context.read<LoginBloc>().add(FormSubmitted());
+                                 }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                               ),
                               child: const Text(
                                 'SING IN',
-                                style: TextStyle(
+                                style: TextStyle( 
                                   color: Colors.black26,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,

@@ -4,11 +4,14 @@ class DefaultTexfield extends StatelessWidget {
   final String label;
   final IconData icon;
   final Function(String text)? onChanged;
+  final String? Function(String?)? validator;
+
   const DefaultTexfield({
     super.key,
     required this.label,
     required this.icon,
     required this.onChanged,
+    this.validator,
   });
 
   @override
@@ -36,7 +39,8 @@ class DefaultTexfield extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextField(
+                child: TextFormField(
+                  validator: validator,
                   onChanged: onChanged,
                   decoration: InputDecoration(
                       contentPadding:
