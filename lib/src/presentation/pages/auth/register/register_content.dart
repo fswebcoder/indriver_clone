@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:indriver_clone/src/presentation/widgets/default_texfield_outline.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:indriver_clone/src/presentation/pages/auth/register/bloc/register_bloc.dart';
+import 'package:indriver_clone/src/presentation/pages/auth/register/bloc/register_event.dart';
+import 'package:indriver_clone/src/presentation/pages/auth/register/bloc/register_state_bloc.dart';
+import 'package:indriver_clone/src/presentation/utils/bloc_form_item.dart';
+
+import '../../../widgets/default_texfield.dart';
 
 class RegisterContent extends StatelessWidget {
-  const RegisterContent({super.key});
+
+  RegisterStateBloc? state;
+
+  RegisterContent(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -44,97 +53,135 @@ class RegisterContent extends StatelessWidget {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                        Color.fromARGB(255, 14, 29, 166),
-                        Color.fromARGB(255, 30, 112, 227)
-                      ],
+                Color.fromARGB(255, 14, 29, 166),
+                Color.fromARGB(255, 30, 112, 227)
+              ],
             ),
           ),
-          child: Column(
-            children: [
-              _imageBanner(),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Stack(
-                    children: [
-                      _imageBackgroud(context),
+          child: Form(
+            key: state?.formKey,
+            child: Column(
+              children: [
+                _imageBanner(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Stack(
+                      children: [
+                        _imageBackgroud(context),
                       Column(
-                        children: [
-                            DefaultTexfieldOutline(
-                          label: 'Nombre',
-                          icon: Icons.person_2_outlined,
-                          onChanged:  (value) {
-                            print(value);
-                          },
-                        ),
-                         DefaultTexfieldOutline(
-                          label: 'Apellido',
-                          icon: Icons.person_2_outlined,
-                            onChanged:  (value) {
-                            print(value);
-                          }
-                        ),
-                         DefaultTexfieldOutline(
-                          label: 'Email',
-                          icon: Icons.email_outlined,
-                            onChanged:  (value) {
-                            print(value);
-                          }
-                        ),
-                         DefaultTexfieldOutline(
-                          label: 'Telefono',
-                          icon: Icons.phone,
-                            onChanged:  (value) {
-                            print(value);
-                          }
-                        ),
-                         DefaultTexfieldOutline(
-                          label: 'Contraseña',
-                          icon: Icons.lock,
-                            onChanged:  (value) {
-                            
-                          }
-                        ),
-                         DefaultTexfieldOutline(
-                          label: 'Confirmar Contraseña',
-                          icon: Icons.lock,
-                            onChanged:  (value) {
-                            print(value);
-                          }
-                        ),
-                        const SizedBox(height: 30),
-                        Container(
-                          height: 35,
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(
-                              bottom: 20, left: 15, right: 15),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                            ),
-                            child: const Text(
-                              'SING IN',
-                              style: TextStyle(
-                                color: Colors.black26,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                            children: [
+                              DefaultTexfield(
+                                label: 'Nombre',
+                                icon: Icons.lock_outline_rounded,
+                                onChanged: (text) {
+                                  context.read<RegisterBloc>().add(NameChanged(
+                                      name: BlocFormItem(value: text)));
+                                },
+                                validator: (value) {
+                                  return state?.name.error ;
+                                },
                               ),
-                            ),
+                              DefaultTexfield(
+                                label: 'Apellido',
+                                icon: Icons.lock_outline_rounded,
+                                onChanged: (text) {
+                                  context.read<RegisterBloc>().add(
+                                      LastNameChanged(
+                                          lastname: BlocFormItem(value: text)));
+                                },
+                                validator: (value) {
+                                  return state?.lastname.error;
+                                },
+                              ),
+                              DefaultTexfield(
+                                label: 'Email',
+                                icon: Icons.email_outlined,
+                                onChanged: (text) {
+                                  context.read<RegisterBloc>().add(EmailChanged(
+                                      email: BlocFormItem(value: text)));
+                                },
+                                validator: (value) {
+                                  return state?.email.error;
+                                },
+                              ),
+            
+                              DefaultTexfield(
+                                label: 'Teléfono',
+                                icon: Icons.phone,
+                                onChanged: (text) {
+                                  context.read<RegisterBloc>().add(PhoneChanged(
+                                      phone: BlocFormItem(value: text)));
+                                },
+                                validator: (value) {
+                                  return state?.phone.error ;
+                                },
+                              ),
+            
+                              DefaultTexfield(
+                                label: 'Contraseña',
+                                icon: Icons.lock_outline_rounded,
+                                onChanged: (text) {
+                                  context.read<RegisterBloc>().add(PasswordChanged(
+                                      password: BlocFormItem(value: text)));
+                                },
+                                validator: (value) {
+                                  return state?.password.error ;
+                                },
+                              ),
+            
+                              DefaultTexfield(
+                                label: 'Confirmar contraseña',
+                                icon: Icons.lock_outline_rounded,
+                                onChanged: (text) {
+                                  context.read<RegisterBloc>().add(
+                                      ConfirmPasswordChanged(
+                                          confirmPassword: BlocFormItem(value: text)));
+                                },
+                                validator: (value) {
+                                  return state?.confirmPassword.error ;
+                                },
+                              ),
+            
+                              const SizedBox(height: 30),
+                              Container(
+                                height: 35,
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.only(
+                                    bottom: 20, left: 15, right: 15),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                  if (state!.formKey!.currentState!.validate()) {
+                                    context
+                                        .read<RegisterBloc>()
+                                        .add(FormSubmitted());
+                                  }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                  ),                 
+                                  child: const Text(
+                                    'REGISTER',
+                                    style: TextStyle(
+                                      color: Colors.black26,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              _separetorOr(),
+                              _textAlreadyHaveAccount(context),
+                            ],
                           ),
-                        ),
-                        _separetorOr(),
-                        _textAlreadyHaveAccount(context),
-                        ],
-                      )
-                    ],
-                  
+                        
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        
       ],
     );
   }
@@ -172,19 +219,18 @@ class RegisterContent extends StatelessWidget {
     );
   }
 
-  Widget _separetorOr(){
+  Widget _separetorOr() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           width: 20,
-          height: 1,
-          color: Color.fromARGB(255, 253, 251, 251),
+          color: const Color.fromARGB(255, 253, 251, 251),
         ),
         const SizedBox(width: 5),
         const Text('OR',
             style: TextStyle(
-              color: Color.fromARGB(255, 253, 251, 251),
+              color: const Color.fromARGB(255, 253, 251, 251),
               fontSize: 15,
             )),
         const SizedBox(width: 5),
@@ -197,7 +243,7 @@ class RegisterContent extends StatelessWidget {
     );
   }
 
-  Widget _textAlreadyHaveAccount(BuildContext context){ 
+  Widget _textAlreadyHaveAccount(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -210,7 +256,7 @@ class RegisterContent extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-             Navigator.pushNamed(context, 'login');
+            Navigator.pushNamed(context, 'login');
           },
           child: const Text(
             'Login',
@@ -225,15 +271,15 @@ class RegisterContent extends StatelessWidget {
     );
   }
 
-  Widget _imageBackgroud(BuildContext context){ 
+  Widget _imageBackgroud(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.only(bottom: 50),
-      child: Image.asset('assets/img/destination.png', 
+      child: Image.asset(
+        'assets/img/destination.png',
         height: MediaQuery.of(context).size.height * 0.6,
         width: MediaQuery.of(context).size.width * 0.4,
         opacity: const AlwaysStoppedAnimation(0.3),
-
       ),
     );
   }

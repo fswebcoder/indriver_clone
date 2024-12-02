@@ -3,30 +3,45 @@ import 'package:flutter/material.dart';
 class DefaultTexfieldOutline extends StatelessWidget {
   final String label;
   final IconData icon;
-  final Function(String text)? onChanged;  
+  final Function(String text) onChanged;  
+  String Function(String?)? validator;
 
-   const DefaultTexfieldOutline({
+    DefaultTexfieldOutline({
     super.key,
     required this.label,
     required this.icon,
     required this.onChanged,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+   return    Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                height: 45,
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(134, 144, 233, 0.4),
+            Text(
+              label,
+              style: const TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            const SizedBox(height: 2.0),
+            Container(
+              height: 40,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
                 ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
+                  validator: validator,
+                  onChanged: onChanged,
                   decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(vertical: 12.0),
@@ -35,8 +50,7 @@ class DefaultTexfieldOutline extends StatelessWidget {
                         child: Wrap(
                           alignment: WrapAlignment.spaceEvenly,
                           children: [
-                            Icon(icon,
-                                color: const Color.fromARGB(255, 233, 236, 238)),
+                            Icon(icon, color: Colors.grey),
                             Container(
                               height: 20,
                               width: 1,
@@ -45,22 +59,11 @@ class DefaultTexfieldOutline extends StatelessWidget {
                           ],
                         ),
                       ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 39, 139, 185),
-                          width: 1.0,
-                        ),
-                      ),
+                      border: InputBorder.none,
                       hintText: 'Ingrese aquí su valor',
                       hintStyle: const TextStyle(
                         fontSize: 14.0,
-                        color: Color.fromARGB(255, 235, 231, 231),
+                        color: Colors.grey,
                         textBaseline: TextBaseline.ideographic,
                       )),
                 ),

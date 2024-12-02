@@ -9,10 +9,9 @@ import 'package:indriver_clone/src/presentation/widgets/default_texfield.dart';
 import 'package:indriver_clone/src/presentation/widgets/text_welcome.dart';
 
 class LoginContent extends StatelessWidget {
+  final LoginStateBloc?        state;
 
-  final LoginStateBloc? state; 
-
-   LoginContent(this.state);
+  LoginContent(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class LoginContent extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () => Navigator.pushNamed(context, 'register'),
-                        child: const  RotatedBox(
+                        child: const RotatedBox(
                             quarterTurns: 1,
                             child: Text(
                               'Login',
@@ -56,16 +55,17 @@ class LoginContent extends StatelessWidget {
                             )),
                       ),
                       const SizedBox(height: 50),
-                       GestureDetector(
+                      GestureDetector(
                         onTap: () => Navigator.pushNamed(context, 'register'),
-                         child: const RotatedBox(
+                        child: const RotatedBox(
                             quarterTurns: 1,
                             child: Text(
                               'Register',
-                              style: TextStyle(fontSize: 25, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 25, color: Colors.white),
                             )),
-                       ),
-                      const  SizedBox(height: 100),
+                      ),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),
@@ -91,8 +91,12 @@ class LoginContent extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const SizedBox(height: 50),
-                        const TextWelcome(label: 'WELCOME',),
-                        const TextWelcome(label: 'BACK...',),
+                        const TextWelcome(
+                          label: 'WELCOME',
+                        ),
+                        const TextWelcome(
+                          label: 'BACK...',
+                        ),
                         AnimatedContainer(
                           alignment: Alignment.centerRight,
                           duration: const Duration(seconds: 2),
@@ -111,46 +115,49 @@ class LoginContent extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                         DefaultTexfield(
+                        DefaultTexfield(
                           label: 'Email',
-                            validator: (value) {
-                                return state?.email.error;
-                            },
                           icon: Icons.email_outlined,
-                          onChanged:(text) {
-                                context.read<LoginBloc>().add(EmailChanged(email: BlocFormItem(value: text)));
-                          } ,
-
+                          onChanged: (text) {
+                            context.read<LoginBloc>().add(
+                                EmailChanged(email: BlocFormItem(value: text)));
+                          },
+                          validator: (value) {
+                            return state?.email.error;
+                          },
                         ),
-                          DefaultTexfield(
-                            validator: (value) {
-                                return state?.password.error;
-                            },
+                        DefaultTexfield(
                           label: 'Contraseña',
                           icon: Icons.lock_outline_rounded,
-                          onChanged:(text) {
-                                 context.read<LoginBloc>().add(PasswordChanged(password: BlocFormItem(value: text)));
-                          } ,
+                          onChanged: (text) {
+                            context.read<LoginBloc>().add(PasswordChanged(
+                                password: BlocFormItem(value: text)));
+                          },
+                          validator: (value) {
+                            return state?.password.error;
+                          },
                         ),
                         const Spacer(),
                         Flexible(
                           child: Container(
                             height: 48,
                             width: MediaQuery.of(context).size.width,
-                            margin:
-                                const EdgeInsets.only(bottom: 20, left: 15, right: 15),
+                            margin: const EdgeInsets.only(
+                                bottom: 20, left: 15, right: 15),
                             child: ElevatedButton(
                               onPressed: () {
-                                 if(state!.formKey!.currentState!.validate()){
-                                      context.read<LoginBloc>().add(FormSubmitted());
-                                 }
+                                if (state!.formKey!.currentState!.validate()) {
+                                  context
+                                      .read<LoginBloc>()
+                                      .add(FormSubmitted());
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                               ),
                               child: const Text(
                                 'SING IN',
-                                style: TextStyle( 
+                                style: TextStyle(
                                   color: Colors.black26,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -217,5 +224,3 @@ class LoginContent extends StatelessWidget {
     );
   }
 }
-
-

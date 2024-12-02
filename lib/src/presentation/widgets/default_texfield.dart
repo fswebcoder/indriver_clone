@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DefaultTexfield extends StatelessWidget {
   final String label;
   final IconData icon;
-  final Function(String text)? onChanged;
+  final Function(String text) onChanged;
   final String? Function(String?)? validator;
 
   const DefaultTexfield({
@@ -41,7 +41,9 @@ class DefaultTexfield extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextFormField(
                   validator: validator,
-                  onChanged: onChanged,
+                  onChanged: (text) {
+                    onChanged(text);
+                  },
                   decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(vertical: 12.0),

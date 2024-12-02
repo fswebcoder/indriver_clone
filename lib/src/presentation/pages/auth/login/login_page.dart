@@ -12,7 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  LoginBloc? _loginBloc;
 
   @override
   Widget build(BuildContext context) {
