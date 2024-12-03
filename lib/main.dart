@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          primarySwatch: Colors.deepPurple,
         ),
         initialRoute: 'login',
         routes: {
